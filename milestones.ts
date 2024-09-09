@@ -9,9 +9,10 @@ async function pre_milestones_checkFinality(client: any, txHash: string): Promis
 
   console.log(`Latest finalized block: ${latestBlock.number}`)
   console.log(`Your transaction block: ${tx.blockNumber}`)
+  console.log(`Blocks passed since your transaction: ${latestBlock.number !== null ? latestBlock.number - tx.blockNumber : 'N/A'}\n`)
+
 
   if (latestBlock.number !== null && latestBlock.number - tx.blockNumber >= 256) {
-    console.log("Your transaction block has been confirmed after 256 blocks");
     return true
   } else {
     return false
@@ -25,15 +26,14 @@ async function milestones_checkFinality(client: any, txHash: string): Promise<bo
 
   console.log(`Latest finalized block: ${latestBlock.number}`)
   console.log(`Your transaction block: ${tx.blockNumber}`)
+  console.log(`Blocks passed since your transaction: ${latestBlock.number !== null ? latestBlock.number - tx.blockNumber : 'N/A'}\n`)
 
   if (latestBlock.number !== null && latestBlock.number > tx.blockNumber) {
-    console.log("Your transaction block has been confirmed after 16 blocks");
     return true
   } else {
     return false
   }
 }
-
 async function main() {
   program
     .requiredOption('-t, --txHash <string>', 'Transaction hash')
