@@ -90,7 +90,6 @@ async function pre_milestones_checkFinality(client: any, txHash: string): Promis
 
   // Checking whether there has been 256 blocks since the transaction was included in a block
   if (latestBlock.number !== null && latestBlock.number - tx.blockNumber >= 256) {
-    console.log("Your transaction block has been confirmed after 256 blocks");
     return true
   } else {
     return false
@@ -110,7 +109,6 @@ async function milestones_checkFinality(client: any, txHash: string): Promise<bo
 
   // Checking whether the finalized block number via milestones has reached the transaction block number.
   if (latestBlock.number !== null && latestBlock.number > tx.blockNumber) {
-    console.log("Your transaction block has been confirmed after 16 blocks");
     return true
   } else {
     return false
