@@ -7,10 +7,8 @@ async function pre_milestones_checkFinality(client: any, txHash: string): Promis
   if (!tx || !tx.blockNumber) return false
   const latestBlock: Block = await client.getBlock({ blockTag: 'finalized' })
 
-  console.log(`Latest finalized block: ${latestBlock.number}`)
+  console.log(`Latest block: \t\t${latestBlock.number}`)
   console.log(`Your transaction block: ${tx.blockNumber}`)
-  console.log(`Blocks passed since your transaction: ${latestBlock.number !== null ? latestBlock.number - tx.blockNumber : 'N/A'}\n`)
-
 
   if (latestBlock.number !== null && latestBlock.number - tx.blockNumber >= 256) {
     return true
@@ -22,18 +20,20 @@ async function pre_milestones_checkFinality(client: any, txHash: string): Promis
 async function milestones_checkFinality(client: any, txHash: string): Promise<boolean> {
   const tx = await client.getTransaction({ hash: `0x${txHash}` })
   if (!tx || !tx.blockNumber) return false
-  const latestBlock: Block = await client.getBlock({ blockTag: 'finalized' })
+  const latestBlock: Block = await client.getBlock({ blockTag: 'latest' })
+  const finalizedBlock: Block = await client.getBlock({ blockTag: 'finalized' })
 
-  console.log(`Latest finalized block: ${latestBlock.number}`)
+  console.log(`Latest block: \t\t${latestBlock.number}`)
+  console.log(`Latest Finalized block: ${finalizedBlock.number}`)
   console.log(`Your transaction block: ${tx.blockNumber}`)
-  console.log(`Blocks passed since your transaction: ${latestBlock.number !== null ? latestBlock.number - tx.blockNumber : 'N/A'}\n`)
 
-  if (latestBlock.number !== null && latestBlock.number > tx.blockNumber) {
+  if (finalizedBlock.number !== null && finalizedBlock.number > tx.blockNumber) {
     return true
   } else {
     return false
   }
 }
+
 async function main() {
   program
     .requiredOption('-t, --txHash <string>', 'Transaction hash')
