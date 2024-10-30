@@ -65,7 +65,7 @@ With the introduction of milestones:
 
 ![Finality After Milestones](./pics/milestones.png)
 
-Finality achieved after at least 12 blocks confirmation and 4 blocks of buffer, as well as a voting period among the validators (approx. 1-2 minute)
+Finality achieved after at least 12 blocks confirmation and 16 blocks of buffer, as well as a voting period among the validators (approx. 1-2 minute)
 
 ### 3.2 Using the Milestone API
 
