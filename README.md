@@ -81,7 +81,7 @@ import { program } from 'commander'
 Here's the implementation of Checking Transaction Finality BEFORE Milestones Implementation.
 ```typescript
 async function pre_milestones_checkFinality(client: any, txHash: string): Promise<boolean> {
-  const tx = await client.getTransaction({ hash: `0x${txHash}` })
+  const tx = await client.getTransaction({ hash: txHash })
   if (!tx || !tx.blockNumber) return false
   const latestBlock: Block = await client.getBlock({ blockTag: 'finalized' })
 
@@ -99,7 +99,7 @@ async function pre_milestones_checkFinality(client: any, txHash: string): Promis
 Here's the implementation of Checking Transaction Finality AFTER Milestones Implementation
 ```typescript
 async function milestones_checkFinality(client: any, txHash: string): Promise<boolean> {
-  const tx = await client.getTransaction({ hash: `0x${txHash}` })
+  const tx = await client.getTransaction({ hash: txHash })
   if (!tx || !tx.blockNumber) return false
   const latestBlock: Block = await client.getBlock({ blockTag: 'latest' })
   const finalizedBlock: Block = await client.getBlock({ blockTag: 'finalized' })
@@ -129,9 +129,9 @@ async function milestones_checkFinality(client: any, txHash: string): Promise<bo
 
 - Step 3: Run the code using Node.js with the required command-line arguments:
   ```bash
-  npx ts-node milestones.ts --txHash <transaction_hash> --function <function_name> --network <network_name>
+  npx tsx milestones.ts --txHash <transaction_hash> --function <function_name> --network <network_name>
   ```
-  Replace <transaction_hash> with the actual transaction hash, <function_name> with either pre_milestones or milestones, and <network_name> with either polygon or amoy.
+  Replace <transaction_hash> with the actual transaction hash, <function_name> with either `pre_milestones` or `milestones`, and <network_name> with either `polygon` or `amoy`.
 
 - Step 4: Observe the output to determine if your transaction has been finalized based on the selected milestone mechanism and network.
 

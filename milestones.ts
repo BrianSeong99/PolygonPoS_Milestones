@@ -3,7 +3,7 @@ import { polygon, polygonAmoy } from 'viem/chains'
 import { program } from 'commander'
 
 async function pre_milestones_checkFinality(client: any, txHash: string): Promise<boolean> {
-  const tx = await client.getTransaction({ hash: `0x${txHash}` })
+  const tx = await client.getTransaction({ hash: txHash })
   if (!tx || !tx.blockNumber) return false
   const latestBlock: Block = await client.getBlock({ blockTag: 'finalized' })
 
@@ -18,7 +18,7 @@ async function pre_milestones_checkFinality(client: any, txHash: string): Promis
 }
 
 async function milestones_checkFinality(client: any, txHash: string): Promise<boolean> {
-  const tx = await client.getTransaction({ hash: `0x${txHash}` })
+  const tx = await client.getTransaction({ hash: txHash })
   if (!tx || !tx.blockNumber) return false
   const latestBlock: Block = await client.getBlock({ blockTag: 'latest' })
   const finalizedBlock: Block = await client.getBlock({ blockTag: 'finalized' })
